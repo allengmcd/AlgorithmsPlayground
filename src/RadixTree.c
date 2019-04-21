@@ -23,7 +23,7 @@ int checkChildCharacters(struct node *currentNode, char inChar)
 {
     for(int i = 0; i < currentNode->childSize; i++)
     {
-        if(&currentNode->children[i].data == inChar)
+        if((char)currentNode->children[i].data == inChar)
         {
             return i;
         }
@@ -51,8 +51,7 @@ void addString(char* inString, int inLength)
             newNode->childSize = 0;
 
             currentNode->childSize ++; // Increase the child count
-            //currentNode->children = realloc(tempChildList, currentNode->childSize * sizeof(struct node)); // Reallocate memory for the new node
-			struct node *tempChildList = malloc(currentNode->childSize * sizeof(struct node));
+			struct node *tempChildList = malloc(currentNode->childSize * sizeof(struct node)); // TODO(allen): right now I make a temp array, I want to just add on to the end
 
             for(int i = 0; i < currentNode->childSize; i++)
             {
@@ -73,12 +72,41 @@ void addString(char* inString, int inLength)
     currentNode->isEndOfString = TRUE;
 }
 
+void basicTest()
+{
+    struct node *test = radixTree;
+    test = &test->children[0];
+    while(TRUE)
+    {
+        printf("%c \n", test->data);
+        if(test->childSize)
+        {
+            if(test->childSize == 2)
+            {
+                struct node temp1 = test->children[0];
+                struct node temp2 = test->children[1];
+                printf("%c \n", temp1.data);
+                printf("%c \n", temp2.data);
+            }
+
+            test = &test->children[0];
+        }
+        else
+        { 
+            return;
+        }
+        
+    }
+}
+
 int main()
 {
     createRadixTree();
     addString("Hello, World!", 13);
+    addString("He11ds4", 13);
+    addString("Hello, WoXXrld!", 13);
     basicTest();
-   printf("Hello, World!");
+    printf("Hello, World!");
 
-   return 0;
+    return 0;
 }
