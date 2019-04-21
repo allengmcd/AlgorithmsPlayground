@@ -53,17 +53,17 @@ void addString(char* inString, int inLength)
             currentNode->childSize ++; // Increase the child count
 			struct node *tempChildList = malloc(currentNode->childSize * sizeof(struct node)); // TODO(allen): right now I make a temp array, I want to just add on to the end
 
-            for(int i = 0; i < currentNode->childSize; i++)
+            for(int j = 0; j < currentNode->childSize; j++)
             {
-                if(i == currentNode->childSize - 1)
+                if(j == currentNode->childSize - 1)
                 {
-                    tempChildList[i] = *newNode;
+                    tempChildList[j] = *newNode;
                     currentNode->children = tempChildList;
-                    currentNode = &currentNode->children[i];
+                    currentNode = &currentNode->children[j];
                 }
                 else 
                 {
-                    tempChildList[i] = currentNode->children[i];
+                    tempChildList[j] = currentNode->children[j];
                 }
             }
         }
@@ -72,41 +72,38 @@ void addString(char* inString, int inLength)
     currentNode->isEndOfString = TRUE;
 }
 
-void basicTest()
+bool containsString(char *inString, int inSize)
 {
-    struct node *test = radixTree;
-    test = &test->children[0];
-    while(TRUE)
-    {
-        printf("%c \n", test->data);
-        if(test->childSize)
-        {
-            if(test->childSize == 2)
-            {
-                struct node temp1 = test->children[0];
-                struct node temp2 = test->children[1];
-                printf("%c \n", temp1.data);
-                printf("%c \n", temp2.data);
-            }
+    struct node *currentNode = radixTree;
 
-            test = &test->children[0];
+
+    bool hitData = TRUE;
+    for(int i = 0; i < inSize && hitData == TRUE; i++) 
+    {
+        hitData = FALSE;
+        for(int j = 0; j < currentNode->childSize && hitData == FALSE; j++ ) 
+        {
+            struct node *tempNode = &currentNode->children[j];
+            if((char)tempNode->data == inString[i])
+            {
+                currentNode = &currentNode->children[j];
+                hitData = TRUE;
+            }
         }
-        else
-        { 
-            return;
-        }
-        
     }
+
+
+    if(hitData && currentNode->isEndOfString == TRUE)
+    {
+        return TRUE;
+    }
+
+    return FALSE;
 }
 
 int main()
 {
     createRadixTree();
-    addString("Hello, World!", 13);
-    addString("He11ds4", 13);
-    addString("Hello, WoXXrld!", 13);
-    basicTest();
-    printf("Hello, World!");
 
     return 0;
 }
