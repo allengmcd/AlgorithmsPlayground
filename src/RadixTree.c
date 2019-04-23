@@ -101,9 +101,51 @@ bool containsString(char *inString, int inSize)
     return FALSE;
 }
 
+char* GetString(struct node *endNode)
+{
+    char* string;
+    struct node *currentNode = endNode;
+
+}
+
+void IterateRadixTree(char* currentString, struct node *currentNode)
+{
+	char *newString = malloc((strlen(currentString)+1) * sizeof(char));
+    strcat(newString, currentString);
+    strcat(newString, &currentNode->data);
+    strcat(newString, "\0");
+
+    if(currentNode->isEndOfString == TRUE)
+    {
+        printf("%s \n", newString);
+    }
+
+    for(int i = 0; i < currentNode->childSize; i++)
+    {
+        IterateRadixTree(newString, &currentNode->children[i]);
+    }
+
+    return;
+}
+
+void iterate()
+{
+    char *start = "\0";
+    for(int i = 0; i < radixTree->childSize; i++)
+    {
+		IterateRadixTree(start, &radixTree->children[i]);
+    }
+}
+
 int main()
 {
     createRadixTree();
+    addString("Sad!", 4);
+    addString("Bad!", 4);
+    addString("Lad!", 4);
+    addString("Tad!", 4);
+    addString("Mad!", 4);
+    iterate();
 
     return 0;
 }
