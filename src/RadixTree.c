@@ -10,6 +10,7 @@ struct node {
     char data;
     int childSize;
     bool isEndOfString; 
+    bool isRoot;
 } *radixTree;
 
 
@@ -17,6 +18,7 @@ void createRadixTree()
 {
     radixTree = malloc(sizeof(struct node));
     radixTree->childSize = 0;
+    radixTree->isRoot = TRUE;
 }
 
 int checkChildCharacters(struct node *currentNode, char inChar)
@@ -49,6 +51,8 @@ void addString(char* inString, int inLength)
             newNode->parent = currentNode;
             newNode->data = inString[i];
             newNode->childSize = 0;
+            newNode->isRoot = FALSE;
+            newNode->isEndOfString = FALSE;
 
             currentNode->childSize ++; // Increase the child count
 			struct node *tempChildList = malloc(currentNode->childSize * sizeof(struct node)); // TODO(allen): right now I make a temp array, I want to just add on to the end
@@ -108,21 +112,35 @@ char* GetString(struct node *endNode)
 
 }
 
-void IterateRadixTree(char* currentString, struct node *currentNode)
+void printWord(struct node *currentNode) 
 {
-	char *newString = malloc((strlen(currentString)+1) * sizeof(char));
-    strcat(newString, currentString);
+	char newString[1024] = "";
     strcat(newString, &currentNode->data);
-    strcat(newString, "\0");
+	struct node* parentNode = currentNode->parent;
+	while (currentNode->parent->isRoot == FALSE)
+	{
+		char tempString[1024] = "";
+		strcat(tempString, &parentNode->data);
+		strcat(tempString, newString);
+		strcpy(newString, tempString);
+        currentNode = parentNode;
+	    parentNode = currentNode->parent;
+	}
 
+    strcat(newString, "\0");
+    printf("%s \n", newString);
+}
+
+void IterateRadixTree(struct node *currentNode)
+{
     if(currentNode->isEndOfString == TRUE)
     {
-        printf("%s \n", newString);
+        printWord(currentNode);
     }
 
     for(int i = 0; i < currentNode->childSize; i++)
     {
-        IterateRadixTree(newString, &currentNode->children[i]);
+        IterateRadixTree(&currentNode->children[i]);
     }
 
     return;
@@ -130,21 +148,27 @@ void IterateRadixTree(char* currentString, struct node *currentNode)
 
 void iterate()
 {
-    char *start = "\0";
+    char start[1024] = "";
     for(int i = 0; i < radixTree->childSize; i++)
     {
-		IterateRadixTree(start, &radixTree->children[i]);
+		IterateRadixTree(&radixTree->children[i]);
     }
+}
+
+void addStringToRadixTree(char *inString)
+{
+    size_t stringLength = strlen(inString);
+    addString(inString, stringLength);
 }
 
 int main()
 {
     createRadixTree();
-    addString("Sad!", 4);
-    addString("Bad!", 4);
-    addString("Lad!", 4);
-    addString("Tad!", 4);
-    addString("Mad!", 4);
+    addStringToRadixTree("Hi");
+    addStringToRadixTree("Bad!");
+    addStringToRadixTree("Lad!");
+    addStringToRadixTree("Tad!");
+    addStringToRadixTree("Mad!");
     iterate();
 
     return 0;
