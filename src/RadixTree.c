@@ -116,16 +116,12 @@ char* GetString(struct node *endNode)
 void printWord(struct node *currentNode) 
 {
 	char newString[1024] = "";
-	//memset(newString, 0, 1024 * (sizeof members[1024]));
     newString[0] = currentNode->data;
-	//strcpy(newString,currentNode->data &currentNode->data);
 	struct node* parentNode = currentNode->parent;
 	while (currentNode->parent->isRoot == FALSE)
 	{
 		char tempString[1024] = "";
-		//memset(tempString, 0, 1024 * (sizeof tempString[1024]));
 		tempString[0] = parentNode->data;
-		//strcat(tempString, &parentNode->data);
 		strcat(tempString, newString);
 		strcpy(newString, tempString);
         currentNode = parentNode;
@@ -168,21 +164,10 @@ void addStringToRadixTree(char *inString)
 
 int main()
 {
-    createRadixTree();
-    addStringToRadixTree("Hi");
-    addStringToRadixTree("Badasdfas!");
-    addStringToRadixTree("La!");
-    addStringToRadixTree("Ladeey!");
-    addStringToRadixTree("badywww!");
-    addStringToRadixTree("4ad!sreree");
-    addStringToRadixTree("Tdfasdad!");
-    addStringToRadixTree("afdsfLa!");
-    addStringToRadixTree("1ady!");
-    addStringToRadixTree("badafghsdfgy!");
-    addStringToRadixTree("4adg5tr4!s");
-    addStringToRadixTree("Tdfasdatryrd!");
-
-    iterate();
+    createRadixTree(); // Initiate the tree
+    addStringToRadixTree("Hello, World!"); // Add string
+    iterate(); // Iterate over the tree
+    containsString("Hello, World!"); // Check if string is in the tree
 
     return 0;
 }
