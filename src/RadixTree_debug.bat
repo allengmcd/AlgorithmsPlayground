@@ -2,5 +2,5 @@
 
 IF NOT EXIST ..\build mkdir ..\build
 pushd ..\build
-devenv RadixTree.exe
+devenv RadixTree_test.exe
 popd

@@ -161,13 +161,3 @@ void addStringToRadixTree(char *inString)
     size_t stringLength = strlen(inString);
     addString(inString, stringLength);
 }
-
-int main()
-{
-    createRadixTree(); // Initiate the tree
-    addStringToRadixTree("Hello, World!"); // Add string
-    iterate(); // Iterate over the tree
-    containsString("Hello, World!"); // Check if string is in the tree
-
-    return 0;
-}
