@@ -168,33 +168,11 @@ int main()
     addStringToRadixTree("Hi");
     addStringToRadixTree("Badasdfas!");
     addStringToRadixTree("Lad!");
-    addStringToRadixTree("Tdfasdad!");
-    addStringToRadixTree("Maasdvasdd!");
-	addStringToRadixTree("Mad!");
-	addStringToRadixTree("MaasdvasdfggbsMaadsfvd!");
-	addStringToRadixTree("Masddddd!");
-	addStringToRadixTree("Masdfad!");
-	addStringToRadixTree("ddddbadfsMad!");
-	addStringToRadixTree("dddMad!");
-	addStringToRadixTree("Msdfgbad!");
-	addStringToRadixTree("Mad!");
-	addStringToRadixTree("Maasdfgasdfd!");
+    addStringToRadixTree("Lady!");
+    addStringToRadixTree("bady!");
+    addStringToRadixTree("Lad!s");
+    //addStringToRadixTree("Tdfasdad!");
 
-
-	printf("%d \n", containsString("Hi"));
-	printf("%d \n", containsString("Badasdfas!"));
-	printf("%d \n", containsString("Lad!"));
-	printf("%d \n", containsString("Tdfasdad!"));
-	printf("%d \n", containsString("Maasdvasdd!"));
-	printf("%d \n", containsString("Mad!"));
-	printf("%d \n", containsString("MaasdvasdfggbsMaadsfvd!"));
-	printf("%d \n", containsString("Masddddd!"));
-	printf("%d \n", containsString("Masdfad!"));
-	printf("%d \n", containsString("ddddbadfsMad!"));
-	printf("%d \n", containsString("dddMad!"));
-	printf("%d \n", containsString("Msdfgbad!"));
-	printf("%d \n", containsString("Mad!"));
-	printf("%d \n", containsString("Maasdfgasdfd!"));
 
     iterate();
 
