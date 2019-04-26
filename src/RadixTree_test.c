@@ -5,6 +5,33 @@
 #define FALSE 0
 #define bool int
 
+void userAddString()
+{
+    printf("Enter string: ");
+    char inputString[1024];
+    scanf("%s", &inputString);
+    addStringToRadixTree(inputString);
+    return;
+}
+
+void checkString()
+{
+    printf("Enter string: ");
+    char inputString[1024];
+    scanf("%s", &inputString);
+    
+    if(containsString(inputString))
+    {
+        printf("\n\n%s is inside the radix tree\n\n", inputString);
+    }
+    else 
+    {
+        printf("\n\n%s is NOT inside the radix tree\n\n", inputString);
+    }
+
+    return;
+}
+
 int main()
 {
     createRadixTree();
@@ -15,13 +42,14 @@ int main()
 
     while(isRunning)
     {
-        printf("(1) Add String\n");
+        printf("(1) Add String (1024 characters max)\n");
         printf("(2) Check String\n");
         printf("(3) Iterate\n");
         printf("(4) Exit\n");
         printf("\n\n");
 
         int userInput;
+        //printf("Enter: ");
         scanf("%d", &userInput);
         printf("\n\n");
         
@@ -30,15 +58,17 @@ int main()
 		switch (userInput)
         {
             case 1:
-                printf("Option 1 picked.\n\n");
+                userAddString();
                 break;
             
             case 2:
-                printf("Option 1 picked.\n\n");
+                checkString();
                 break;
 
             case 3:
-                printf("Option 1 picked.\n\n");
+                printf("*****BEGIN*****\n");
+                iterate();
+                printf("******END******\n\n");
                 break;
 
             case 4:
@@ -49,16 +79,9 @@ int main()
                 printf("That is an invalid option. Please pick a different number.\n\n");
                 break;
         }
+
+        printf("\n\n");
     }
-
-
-    createRadixTree(); // Initiate the tree
-    addStringToRadixTree("Hello, World!"); // Add string
-    iterate(); // Iterate over the tree
-    containsString("Hello, World!"); // Check if string is in the tree
-
-    char name[20];
-    scanf("%d", &name);
 
     return 0;
 }
