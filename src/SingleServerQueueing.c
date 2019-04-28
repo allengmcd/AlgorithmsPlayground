@@ -22,20 +22,26 @@ struct customer {
 
 void processCustomer(struct customer *inCustomer)
 {
-
+    
 }
 
 void enterQueue(struct customer *inCustomer)
 {
     struct queue *tempQueue = malloc(sizeof(struct queue));
     lastCustomer->nextCustomer = inCustomer;
+    lastCustomer = lastCustomer->nextCustomer;
+
+    return;
 }
 
-void enterQueue(struct customer *inCustomer)
+void leaveQueue(struct customer *outCustomer)
 {
-    struct queue *tempQueue = malloc(sizeof(struct queue));
-    lastCustomer->nextCustomer = inCustomer;
+    firstCustomer = firstCustomer->nextCustomer;
+    free(outCustomer);
+
+    return;
 }
+
 
 int main()
 {
