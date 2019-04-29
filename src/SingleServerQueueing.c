@@ -18,11 +18,14 @@ struct customer {
     float enterProcessing;
     float leaveProcessing;
     status customerStatus;
-};
+} *customers;
+
+int totalCustomers;
 
 void processCustomer(struct customer *inCustomer)
 {
-    
+    struct customer *currCustomer = firstCustomer;
+    firstCustomer = firstCustomer->nextCustomer;
 }
 
 void enterQueue(struct customer *inCustomer)
