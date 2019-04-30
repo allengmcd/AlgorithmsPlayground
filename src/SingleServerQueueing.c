@@ -1,3 +1,8 @@
+#include <stdio.h>
+#include <time.h>
+#include <math.h>
+
+
 #define TRUE 1
 #define FALSE 0
 #define bool int
@@ -6,6 +11,7 @@
 #define inProcess 1
 #define finished 2
 
+
 struct queue {
     struct customer *nextCustomer;
     struct customer *currentCustomer;
@@ -13,25 +19,35 @@ struct queue {
 
 struct customer {
     int id;
-    float enterQueue;
-    float leaveQueue;
-    float enterProcessing;
-    float leaveProcessing;
+    clock_t enterQueue;
+    clock_t leaveQueue;
+    clock_t enterProcessing;
+    clock_t leaveProcessing;
     status customerStatus;
-} *customers;
+} *customers, *customerInProcessing;
 
 int totalCustomers;
+bool process;
 
-void processCustomer(struct customer *inCustomer)
+clock_t processCustomer()
 {
     struct customer *currCustomer = firstCustomer;
     firstCustomer = firstCustomer->nextCustomer;
+
+    currCustomer->enterQueue = clock(); //Now
+    currCustomer->customerStatus = inProcess;
+    currCustomer->leaveQueue = currCustomer->enterQueue + 10.0f; //Done
+
+    customerInProcessing = currCustomer;
+
+    return currCustomer->leaveQueue;
 }
 
-void enterQueue(struct customer *inCustomer)
+void enterQueue()
 {
-    struct queue *tempQueue = malloc(sizeof(struct queue));
-    lastCustomer->nextCustomer = inCustomer;
+    struct customer *newCustomer =  malloc(sizeof(struct queue));
+    newCustomer->customerStatus = inQueue;
+    lastCustomer->nextCustomer = newCustomer;
     lastCustomer = lastCustomer->nextCustomer;
 
     return;
@@ -48,5 +64,28 @@ void leaveQueue(struct customer *outCustomer)
 
 int main()
 {
-    
+    clock_t endTime;
+    clock_t currentTime = clock();
+    process = FALSE;
+
+    while(currentTime < endTime) 
+    {
+        int random;
+
+        if(random > 10)
+        {
+            enterQueue();
+        }
+        
+        if(process) 
+        {
+            processCustomer();
+            process = TRUE;
+        }
+
+        if(customerInProcessing->leaveProcessing < currentTime)
+        {
+            process = FALSE;
+        }
+    }
 }
