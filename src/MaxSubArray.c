@@ -1,8 +1,10 @@
 #include <time.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 
 #define INT_MAX 2147483647
+#define SIZE 10
 
 struct FindMaxCrossingSubarrayReturn {
     int maxLeft;
@@ -76,30 +78,33 @@ struct FindMaxCrossingSubarrayReturn FindMaxSubArray(int *A, int low, int high)
     }
 }
 
-void DisplayArray(int *array, int size)
+void DisplayArray(int *array, int start, int finish)
 {
-    for(int i = 0; i < size; i++)
+    for(int i = start; i < finish; i++)
     {
-        //printf("%d: %d\n", i, array[i]);
+        printf("%d: %d \n", i, array[i]);
     }
 }
 
 int main()
 {
-    int SIZE = 100;
-    int Array[100] = { 1 };
+    int Array[SIZE] = { 1 };
 
     srand(time(NULL));   // Initialization, should only be called once.
 
-    for(int i = 0; i < 100; i++)
+    for(int i = 0; i < SIZE; i++)
     {
-        int r = rand() % 100 - 100; 
+        int r = rand() % 100 - 50; 
         Array[i] = r;
     }
 
-    DisplayArray(Array, 100);
-    FindMaxSubArray(Array, 0, 99);
-    DisplayArray(Array, 100);
+    DisplayArray(Array, 0, SIZE);
+    printf("\n");
+
+
+    struct FindMaxCrossingSubarrayReturn test = FindMaxSubArray(Array, 0, 99);
+
+    DisplayArray(Array, test.maxLeft, test.maxRight);
 
     return 0;
 }
