@@ -3,8 +3,8 @@
 #include <stdio.h>
 
 
-#define INT_MAX 2147483647
-#define SIZE 10
+#define INT_MAX 214748
+#define SIZE 20
 
 struct FindMaxCrossingSubarrayReturn {
     int maxLeft;
@@ -14,11 +14,11 @@ struct FindMaxCrossingSubarrayReturn {
 
 struct FindMaxCrossingSubarrayReturn FindMaxCrossingSubarray(int *A, int low, int mid, int high)
 {
-    int maxLeft;
-    int leftSum = INT_MAX;
+    int maxLeft = 0;
+    int leftSum = INT_MAX * -1;
     int sum = 0;
 
-    for(int i = mid; i > low; i--)
+    for(int i = mid; i > low - 1; i--)
     {
         sum = sum + A[i];
         if(sum > leftSum)
@@ -29,10 +29,10 @@ struct FindMaxCrossingSubarrayReturn FindMaxCrossingSubarray(int *A, int low, in
     }
 
     int rightSum = INT_MAX * -1;
-    int maxRight;
+    int maxRight = 0;
     sum = 0;
 
-    for(int j = mid+1; j < high; j++)
+    for(int j = mid+1; j < high+1; j++)
     {
         sum = sum + A[j];
         if(sum > rightSum)
@@ -80,7 +80,7 @@ struct FindMaxCrossingSubarrayReturn FindMaxSubArray(int *A, int low, int high)
 
 void DisplayArray(int *array, int start, int finish)
 {
-    for(int i = start; i < finish; i++)
+    for(int i = start; i < finish+1; i++)
     {
         printf("%d: %d \n", i, array[i]);
     }
@@ -98,11 +98,11 @@ int main()
         Array[i] = r;
     }
 
-    DisplayArray(Array, 0, SIZE);
+    DisplayArray(Array, 0, SIZE-1);
     printf("\n");
 
 
-    struct FindMaxCrossingSubarrayReturn test = FindMaxSubArray(Array, 0, 99);
+    struct FindMaxCrossingSubarrayReturn test = FindMaxSubArray(Array, 0, SIZE-1);
 
     DisplayArray(Array, test.maxLeft, test.maxRight);
 
