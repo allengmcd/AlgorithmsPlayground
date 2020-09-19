@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #define TRUE 1
 #define FALSE 0
@@ -106,11 +107,10 @@ bool containsString(char *inString)
     return FALSE;
 }
 
-char* GetString(struct node *endNode)
+void GetString(struct node *endNode)
 {
     char* string;
     struct node *currentNode = endNode;
-
 }
 
 void printWord(struct node *currentNode) 
